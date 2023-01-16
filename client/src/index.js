@@ -1,16 +1,22 @@
-import React, {createContext} from 'react';
-import ReactDOM from 'react-dom';
 import App from './App';
-import UserStore from "./store/UserStore";
+import {createRoot} from "react-dom/client";
+import {MobxProvider} from "./store";
+import CheckAuth from "./components/CheckAuth";
+import {BrowserRouter} from "react-router-dom";
+// Scroll bar
+import 'simplebar/src/simplebar.css';
 
-export const Context = createContext(null);
+const container = document.getElementById('root');
+const root = createRoot(container);
 
-ReactDOM.render(
-    <Context.Provider value={{
-        user: new UserStore()
-    }}>
-        <App />
-    </Context.Provider>,
-    document.getElementById('root')
+
+root.render(
+    <MobxProvider>
+        <CheckAuth>
+            <BrowserRouter>
+                <App/>
+            </BrowserRouter>
+        </CheckAuth>
+    </MobxProvider>
 );
 
